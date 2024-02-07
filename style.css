@@ -26,7 +26,7 @@ h1
     align-items: center;
 }
 
-.timeLabel
+.totalTimeLabel
 {    
     font-weight:600;
     font-size: 40px;
@@ -86,4 +86,14 @@ h1
     background-image: url(trash.png);
     background-size: 50px;
     background-position: center;
+}
+
+.mediciones
+{
+    display: flex;
+    border: 3px solid #171717;
+    margin: 20px;
+    width: 400px;
+    height: 400px;   
+    flex-wrap:wrap;
 }
