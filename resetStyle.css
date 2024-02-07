@@ -1,0 +1,22 @@
+*
+{
+	box-sizing:border-box;
+	min-width:0;
+	margin:0;
+	padding:0
+}
+html
+{
+	scroll-behavior: smooth;
+}
+
+
+h1,h2,h3,h4
+{
+	text-wrap:balance;
+}
+
+p
+{
+	text-wrap:pretty;
+}
