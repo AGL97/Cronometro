@@ -2,48 +2,132 @@ body
 {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content:flex-start;
     align-items: center;
     font-family: Ubuntu,sans-serif;
     background-color: #f1d3b7;
+    padding: 5px;
+    min-height: 600px;
 }
 
 h1
 {
-    margin-top: 50px;
+    margin-top: 30px;
     font-size: 4em;  
     background-color: #171717; 
     color: #F49336;
     border-radius: 10px;
     padding: 5px;
+    text-align: center;
 }
 
-.crono{
-    position: relative;
+main{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 
-.totalTimeLabel
-{    
+.totalTime
+{
+    display: flex;
+    justify-content: center;
+}
+
+.totalTime .totalTimeLabel
+{ 
     font-weight:600;
-    font-size: 40px;
-    margin: 20px;
+    font-size: 3em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 5px;
     color: #F49336;
     background-color: #171717;
-    padding: 10px;
+    padding: 5px;
+    border-radius: 10px;    
+    text-align: center;
+}
+
+.totalTime .totalTimeValue
+{   
+    margin: auto;
+    font-weight:600;
+    font-size: 3em;
+    max-height: 55px;
+    color: #F49336;
+    background-color: #171717;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border-radius: 10px;    
+    text-align: center;
+}
+
+.partialTime
+{
+    display: flex;
+    justify-content: center;
+}
+
+.partialTime .partialTimeLabel
+{ 
+    font-weight:600;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    color: #F49336;
+    background-color: #171717;
+    padding: 5px;
     border-radius: 10px;
 }
+
+.partialTime .partialTimeValue
+{
+    font-weight:600;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 5px;
+    color: #F49336;
+    background-color: #171717;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 
 .containerBtns
 {
     position: relative;
     display: flex;
+    justify-content: center;
 }
 
-.containerBtns .startBtn
+.containerBtns .buttons
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.containerBtns .buttons:hover
+{
+    transform: scale(1.1);
+}
+
+.containerBtns .labelsBtn
+{
+    font-size: 1.3em;
+    font-weight: 400;
+    background-color: #171717;
+    color: #F49336;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.containerBtns .buttons .startBtn
 {
     width: 50px;
     height: 50px;
@@ -52,7 +136,7 @@ h1
     background-position: center;
 }
 
-.containerBtns .startBtn.pauseBtn
+.containerBtns .buttons .startBtn.pauseBtn
 {
     width: 50px;
     height: 50px;
@@ -61,16 +145,16 @@ h1
     background-position: center;
 }
 
-.containerBtns .stopBtn
+.containerBtns .buttons .partialBtn
 {
     width: 50px;
     height: 50px;
-    background-image: url(stop.png);
-    background-size: 80px;
+    background-image: url(partial.png);
+    background-size: 55px;
     background-position: center;
 }
 
-.containerBtns .resetBtn
+.containerBtns .buttons .resetBtn
 {
     width: 50px;
     height: 50px;
@@ -79,7 +163,7 @@ h1
     background-position: center;
 }
 
-.containerBtns .cleanBtn
+.containerBtns .buttons .cleanBtn
 {
     width: 50px;
     height: 50px;
@@ -88,12 +172,122 @@ h1
     background-position: center;
 }
 
-.mediciones
+main .mediciones
 {
     display: flex;
-    border: 3px solid #171717;
-    margin: 20px;
-    width: 400px;
-    height: 400px;   
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #171717;
+    font-size: 1em;
+    font-weight: 400;
+    background-color: #171717;
+    color: #F49336;
+    border-radius: 4px;
+    max-width: 150px; 
+    max-height: 600px;
+    width: 75px;
+    height: 20px;
     flex-wrap:wrap;
+    text-align: center;
+    margin-bottom: 10px;
+    
 }
+
+@media (width<670px)
+{
+    h1
+    {
+        min-width: 500px;
+        font-size: 3em;
+    }
+
+    .totalTime
+    {
+        min-width: 400px
+    }
+
+    .totalTime .totalTimeLabel
+    {
+        font-size: 2em;
+        max-width: 400px;
+    }
+
+    .totalTime .totalTimeValue
+    {
+        font-size: 2em;
+        min-width: 60px;
+        height: fit-content;
+    }
+
+    .partialTime .partialTimeLabel
+    { 
+        margin-top: 0px;
+        margin-right: 5px;
+        margin-bottom: 0px;        
+    }
+
+    .partialTime .partialTimeValue
+    {
+        margin: 0px;
+    }
+
+}
+
+@media (width<535px)
+{
+
+    body
+    {
+        max-width: 535px;
+        min-width: 270px;        
+    }
+    h1
+    {
+        max-width: 280px;
+        min-width: 270px;
+        font-size: 1.5em;
+    }
+    .totalTime
+    {
+        max-width: 350px;
+        min-width: 60px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .totalTime .totalTimeLabel
+    {
+        font-size: 1.5em;
+    }
+    .totalTime .totalTimeValue
+    {
+        font-size: 1.5em;        
+        margin-top: 0px;
+        margin-right: 0px;
+    }
+
+    .partialTime
+    {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .partialTime .partialTimeLabel
+    { 
+        font-size: 1.0em;  
+        margin:0px      
+    }
+
+    .partialTime .partialTimeValue
+    {
+        margin: 1.0em;
+    }
+    
+}
+
+
