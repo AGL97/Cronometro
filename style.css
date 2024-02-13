@@ -173,7 +173,7 @@ main{
     background-position: center;
 }
 
-main .mediciones
+main .mediciones.relleno
 {
     display: flex;
     flex-direction: column;
@@ -188,11 +188,10 @@ main .mediciones
     max-width: 150px; 
     max-height: 600px;
     width: 75px;
-    height: 20px;
+    min-height: 20px;
     flex-wrap:wrap;
     text-align: center;
-    margin-bottom: 10px;
-    
+    margin-bottom: 10px;    
 }
 
 @media (width<670px)
@@ -233,9 +232,14 @@ main .mediciones
         margin: 0px;
     }
 
+    main .mediciones
+    {
+       margin: 10px;
+    }
+
 }
 
-@media (width<535px)
+@media (width<555px)
 {
 
     body
@@ -264,7 +268,8 @@ main .mediciones
     }
     .totalTime .totalTimeValue
     {
-        font-size: 1.5em;   
+        font-size: 1.5em; 
+        padding: 5px;  
     }
 
     .partialTime
@@ -286,7 +291,12 @@ main .mediciones
     {
         margin: 20px;
     }
-    
+
+    main .mediciones
+    {
+       margin: 0px;
+       margin-bottom: 10px;
+    }    
 }
 
 
