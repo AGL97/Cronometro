@@ -1,4 +1,10 @@
+import {Timer} from "./timer.js";
+
 const refStartBtn = document.querySelector(".buttons.divStartBtn");
+
+const refConvertToImgPause = document.querySelector(".startBtn");
+
+const refLabelPause = document.querySelector(".buttons.divStartBtn .labelsBtn");
 
 const refTotalLabelValue = document.querySelector(".totalTimeValue");
 
@@ -8,169 +14,88 @@ const refPartialLabelValue = document.querySelector(".partialTimeValue");
 
 const refScores = document.querySelector(".mediciones");
 
-/*Valores Totales*/
-let  ms = 0;
-let  ss = 0;
-let  mm = 0;
-let  hh = 0;
+const refResetBtn = document.querySelector(".buttons.divResetBtn");
 
-/*Valores parciales*/
+const refClean = document.querySelector(".buttons.divCleanButton");
 
-let ms_partial = 0;
-let ss_partial = 0;
-let mm_partial = 0;
-let hh_partial = 0;
+const principalTimer = new Timer();
 
-/*Bandera de habilitacion de boton Parcial*/
-let isMainTimerRunning = false;
+const partialTimer = new Timer();
 
-/*Bandera de reinicio de 2do timer*/
-let isSecondaryTimerRunning = false;
 
-let cont=0;
+let cronoPartial = 0;
 
-/*seccion Empezar cuenta*/
 
-function updateMs() {
-    ms+=1;
-    if(ms===1000)
-    {
-        ms=0;
-    }
-}
-
-function updateSs() {
-    ss+=1;
-    if(ss===60)
-    {
-        ss=0;
-    }   
-}
-
-function updateMm() {
-    mm+=1;
-    if(mm===60)
-    {
-        mm=0;
-    }
-}
-
-function updateHh() {
-    hh+=1;
-    if(hh===60)
-    {
-        hh=0;
-    }
-}
-
-/*Seccion cuenta secundaria*/
-function updateMs_partial() {
-    ms_partial+=1;
-    if(ms_partial===1000)
-    {
-        ms_partial=0;
-    }
-}
-
-function updateSs_partial() {
-    ss_partial+=1;
-    if(ss_partial===60)
-    {
-        ss_partial=0;
-    }   
-}
-
-function updateMm_partial() {
-    mm_partial+=1;
-    if(mm_partial===60)
-    {
-        mm_partial=0;
-    }
-}
-
-function updateHh_partial() {
-    hh_partial+=1;
-    if(hh_partial===60)
-    {
-        hh_partial=0;
-    }
-}
-
-/*Actualizar label de cuenta principal*/
+let isMainTimerRunning=false;
 
 refStartBtn.addEventListener("click",()=>
 {
-    const cronoMs = setInterval(updateMs,1)
-    const cronoSs = setInterval(updateSs,1000)
-    const cronoMm = setInterval(updateMm,60000)
-    const cronoHh = setInterval(updateHh,3600000)
-
-const showTime = () => 
-{
-    console.log(`Milisegundos: ${ms} Segundos: ${ss} Minutos: ${mm} Horas: ${hh}`)
-    refTotalLabelValue.textContent=`${hh}:${mm}:${ss}:${ms}`;
-}
-
-
-/*
-refStartBtn.addEventListener("click",function () {
-    clearInterval(crono);
-    clearInterval(cronoMs);
-    clearInterval(cronoSs);
-    clearInterval(cronoMm);
-    clearInterval(cronoHh);
-})
-*/
-const crono = setInterval(showTime,100);
-
-})
-
-
-
-
-/*Tomar Valor Parcial*/
-refPartialBtn.addEventListener("click",()=>{
-    if(isMainTimerRunning)
-    {
-        if(!refScores.classList.contains("relleno"))
+    let cronoPrincipal = 0
+    refConvertToImgPause.classList.toggle("pauseBtn")
+    if (refConvertToImgPause.classList.contains("pauseBtn")) 
+    {  
+        refLabelPause.textContent=`Pausar`; 
+        principalTimer.start();
+        cronoPrincipal = setInterval(()=>
         {
-            refScores.classList.add("relleno");
-        }
-
-        var newScore  = document.createElement("label");
-
-        newScore.textContent=`${hh_partial}:${mm_partial}:${ss_partial}:${ms_partial}`;
-
-        refScores.append(newScore);
-
-        const cronoMs_partial = setInterval(updateMs_partial,1)
-        const cronoSs_partial = setInterval(updateSs_partial,1000)
-        const cronoMm_partial = setInterval(updateMm_partial,60000)
-        const cronoHh_partial = setInterval(updateHh_partial,3600000) 
-
-        if(isSecondaryTimerRunning)
-        {           
-            clearInterval(cronoMs_partial);
-            clearInterval(cronoSs_partial);
-            clearInterval(cronoMm_partial);
-            clearInterval(cronoHh_partial);
-            ms_partial = 0;
-            ss_partial = 0;
-            mm_partial = 0;
-            hh_partial = 0;
-            isSecondaryTimerRunning=false
-        }
-    
-        isSecondaryTimerRunning=true;
-        
-        const secondTime = setInterval(() => {
-            refPartialLabelValue.textContent=`${hh_partial}:${mm_partial}:${ss_partial}:${ms_partial}`
-        }, 100);
+            refTotalLabelValue.textContent = principalTimer.now();
+        },100)
+        isMainTimerRunning=true;
+    }
+    else
+    {       
+        refLabelPause.textContent=`Empezar`;
+        principalTimer.stop();
+        partialTimer.stop();
+        clearInterval(cronoPrincipal);
+        isMainTimerRunning=false;  
     }
 })
 
+refPartialBtn.addEventListener("click",()=>
+{
+    if (isMainTimerRunning) {
+        
+            partialTimer.stop();
+            partialTimer.reset();
+            partialTimer.start();
 
+            cronoPartial = setInterval(()=>
+            {
+                refPartialLabelValue.textContent = partialTimer.now();
+                
+            },100);
 
+            var newScore  = document.createElement("label");
+        
+            newScore.textContent = refPartialLabelValue.textContent;
 
+            if(refPartialLabelValue.textContent==="00:00:00"||refPartialLabelValue.textContent==="0:0:0:0")
+            {
+                newScore.textContent = principalTimer.now();
+            }
+            if(!refScores.classList.contains("relleno"))
+            {
+                refScores.classList.add("relleno");
+            }
+            refScores.append(newScore);
+    }    
+    
+})
 
+refResetBtn.addEventListener("click",()=>
+{    
+    principalTimer.reset();
+    partialTimer.reset();
+    
+})
 
+refClean.addEventListener("click",()=>
+{
+    if(isMainTimerRunning===false)
+    {
+        var labels = refScores.querySelectorAll("label");
+        labels.forEach(label=>{label.remove()});
+        refScores.classList.remove("relleno"); 
+    }
+})
