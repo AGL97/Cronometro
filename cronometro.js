@@ -16,15 +16,15 @@ const refScores = document.querySelector(".mediciones");
 
 const refResetBtn = document.querySelector(".buttons.divResetBtn");
 
-const refClean = document.querySelector(".buttons.divCleanButton");
+const refCleanBtn = document.querySelector(".buttons.divCleanButton");
 
 const principalTimer = new Timer();
 
 const partialTimer = new Timer();
 
+let cont = 0;
 
 let cronoPartial = 0;
-
 
 let isMainTimerRunning=false;
 
@@ -62,17 +62,16 @@ refPartialBtn.addEventListener("click",()=>
 
             cronoPartial = setInterval(()=>
             {
-                refPartialLabelValue.textContent = partialTimer.now();
+                refPartialLabelValue.textContent = partialTimer.now();                
                 
             },100);
 
             var newScore  = document.createElement("label");
         
-            newScore.textContent = refPartialLabelValue.textContent;
-
+            newScore.textContent = `${cont++} -) ${refPartialLabelValue.textContent}`;
             if(refPartialLabelValue.textContent==="00:00:00"||refPartialLabelValue.textContent==="0:0:0:0")
             {
-                newScore.textContent = principalTimer.now();
+                newScore.textContent = `${cont++} - ) ${principalTimer.now()}`;
             }
             if(!refScores.classList.contains("relleno"))
             {
@@ -90,7 +89,7 @@ refResetBtn.addEventListener("click",()=>
     
 })
 
-refClean.addEventListener("click",()=>
+refCleanBtn.addEventListener("click",()=>
 {
     if(isMainTimerRunning===false)
     {
@@ -98,4 +97,7 @@ refClean.addEventListener("click",()=>
         labels.forEach(label=>{label.remove()});
         refScores.classList.remove("relleno"); 
     }
+    cont=0;
 })
+
+
